@@ -40,6 +40,8 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
+        event.getWhoClicked().sendMessage("You clicked!");
+
         if (shouldIgnoreInventoryEvent(event.getClickedInventory())) return;
 
         if (Arrays.stream(PERMITTED_MENU_CLICK_TYPES).noneMatch(type -> type == event.getClick())) {
