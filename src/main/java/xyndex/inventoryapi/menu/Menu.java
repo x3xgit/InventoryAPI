@@ -16,16 +16,16 @@ public class Menu implements InventoryHolder {
     private final InventoryAPI inventoryAPI;
 
     private String name;
-    private int rows;
+    private final int rows;
     private final Map<Integer, Button> items;
 
     private boolean blockDefaultInteractions;
 
-    public Menu(JavaPlugin owner, InventoryAPI inventoryAPI, String name) {
+    public Menu(JavaPlugin owner, InventoryAPI inventoryAPI, int rows, String name) {
         this.owner = owner;
         this.inventoryAPI = inventoryAPI;
         this.name = ChatColor.translateAlternateColorCodes('&', name);
-
+        this.rows = rows;
         this.items = new HashMap<>();
     }
 
@@ -80,9 +80,9 @@ public class Menu implements InventoryHolder {
 
     @Override
     public Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(this, (rows));
+        Inventory inventory = Bukkit.createInventory(this, rows * 9, name);
 
-        for (int slot = 0; slot < getRows(); slot++)
+        for (int slot = 0; slot < getRows() * 9; slot++)
             if (items.containsKey(slot))
                 inventory.setItem(slot, items.get(slot).getIcon());
 
